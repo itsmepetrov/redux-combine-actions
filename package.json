@@ -1,0 +1,39 @@
+{
+  "name": "redux-combine-actions",
+  "version": "0.1.0",
+  "description": "Redux middleware for combining actions",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "eslint ./src/*.js",
+    "build": "babel src --out-dir lib",
+    "clean": "rimraf lib",
+    "prepublish": "npm run clean && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itsmepetrov/redux-combine-actions.git"
+  },
+  "keywords": [
+    "redux",
+    "promise",
+    "middleware",
+    "combine",
+    "actions",
+    "sequence",
+    "sequential",
+    "flux"
+  ],
+  "author": "Anton Petrov <petrov.aap@google.com> (http://github.com/itsmepetrov)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itsmepetrov/redux-combine-actions/issues"
+  },
+  "homepage": "https://github.com/itsmepetrov/redux-combine-actions",
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "babel-eslint": "^4.0.5",
+    "eslint": "^1.1.0",
+    "eslint-config-airbnb": "0.0.7",
+    "rimraf": "^2.4.2"
+  }
+}
