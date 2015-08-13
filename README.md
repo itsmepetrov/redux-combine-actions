@@ -1,4 +1,8 @@
 # Redux Combine Actions
+
+[![build status](https://img.shields.io/travis/itsmepetrov/redux-combine-actions/master.svg?style=flat-square)](https://travis-ci.org/itsmepetrov/redux-combine-actions)
+[![npm version](https://img.shields.io/npm/v/redux-combine-actions.svg?style=flat-square)](https://www.npmjs.com/package/redux-combine-actions)
+
 This is a Redux middleware that allows you to easy combine actions and dispatch them sequentially.
 
 ### Installation
