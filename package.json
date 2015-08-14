@@ -1,6 +1,6 @@
 {
   "name": "redux-combine-actions",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Redux middleware for combining actions",
   "main": "lib/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "sequential",
     "flux"
   ],
-  "author": "Anton Petrov <petrov.aap@google.com> (http://github.com/itsmepetrov)",
+  "author": "Anton Petrov <petrov.aap@gmail.com> (http://github.com/itsmepetrov)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/itsmepetrov/redux-combine-actions/issues"
