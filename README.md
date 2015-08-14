@@ -13,8 +13,6 @@ npm install --save redux-combine-actions
 
 ## Usage
 
-Manual TBD
-
 To enable redux-combine-actions use applyMiddleware()
 
 ```js
