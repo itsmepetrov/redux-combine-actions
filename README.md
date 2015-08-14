@@ -31,13 +31,15 @@ let store = createStoreWithMiddleware(reducer);
 To use the middleware, you action creator must return action with the following fields:
 
 - `types` - An array of action types in the next notation: [PENDING, SUCCESS, ERROR], where PENDING action is dispatched immediately, SUCCESS action is dispatched only if all child actions were executed successfully and ERROR action is dispatched  only if an error occurred.
-- `payload` - An array of [action creators](http://gaearon.github.io/redux/docs/basics/Actions.html#action-creators). This field must contain set of functions which shall be dispatched. For example, it can be [ordinary action creators](#simple-usage), or actions creators that return a [promise](#with-promises) (see [redux-promise](https://github.com/acdlite/redux-promise) or [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware)), in this case, you can specify `sequence` option. 
+- `payload` - An array of [action creators](http://gaearon.github.io/redux/docs/basics/Actions.html#action-creators). This field must contain set of functions which shall be dispatched. For example, it can be [ordinary action creators](#simple-usage), or action creators that return a [promise](#with-promises) (see [redux-promise](https://github.com/acdlite/redux-promise) or [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware)), in this case, you can specify `sequence` option. 
 - `sequence` - Specifies actions sequence. If `true` - dispatch array of action creators in sequential order, else - dispatch in parallel.
+
+The middleware returns a promise to the caller and a [FSA](https://github.com/acdlite/flux-standard-action) compliant action for both SUCCESS and ERROR action types.
 
 ### Simple usage
 ```js
 export function addTodo(text) {
-  return { type: types.ADD_TODO, text };
+  return { type: ADD_TODO, text };
 }
 
 export function increment() {
@@ -62,6 +64,10 @@ export function addTodoAndIncrement({text}) {
 // Dispatch action
 store.dispatch(addTodoAndIncrement({text:'Dispatch combined action'}));
 ```
+
+This will dispatch actions in the following sequence:
+
+*`COMBINED_ACTION_START`* > *`ADD_TODO`* > *`INCREMENT_COUNTER`* > *`COMBINED_ACTION_SUCCESS`*
 
 ### With promises
 Using in combination with [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware).
@@ -106,6 +112,14 @@ export function fetchData() {
     };
 }
 ```
+
+This will dispatch actions one after another:
+
+*`DATABASE_FETCH_PENDING`* > *`PROVIDERS_GET_PENDING`* > *`PROVIDERS_GET_SUCCESS`* > *`SUBSCRIBER_GET_PENDING`* > *`SUBSCRIBER_GET_SUCCESS`* > *`DATABASE_FETCH_SUCCESS`*
+
+If you set `sequence` to `false` then all child actions will be dispatched in parallel:
+
+*`DATABASE_FETCH_PENDING`* > *`PROVIDERS_GET_PENDING`* > *`SUBSCRIBER_GET_PENDING`* > *`PROVIDERS_GET_SUCCESS`* > *`SUBSCRIBER_GET_SUCCESS`* > *`DATABASE_FETCH_SUCCESS`*
 
 ## License
 
