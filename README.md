@@ -50,8 +50,8 @@ export function addTodoAndIncrement({text}) {
     return {
         types: [
             'COMBINED_ACTION_START',
-            'COMBINED ACTION_SUCCESS',
-            'COMBINED ACTION_ERROR'
+            'COMBINED_ACTION_SUCCESS',
+            'COMBINED_ACTION_ERROR'
         ],
 
         // Pass actions in array
