@@ -15,11 +15,26 @@ npm install --save redux-combine-actions
 
 Manual TBD
 
+To enable redux-combine-actions use applyMiddleware()
+
 ```js
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import combineActionsMiddleware from 'redux-combine-actions';
+import * as reducers from './reducers';
+
+let createStoreWithMiddleware = applyMiddleware(combineActionsMiddleware)(createStore);
+
+let reducer = combineReducers(reducers);
+let store = createStoreWithMiddleware(reducer);
 ```
 
-Simple usage
+To use the middleware, you action creator must return action with the following fields:
+
+- `types` - An array of action types in the next notation: [PENDING, SUCCESS, ERROR], where PENDING action is dispatched immediately, SUCCESS action is dispatched only if all child actions were executed successfully and ERROR action is dispatched  only if an error occurred.
+- `payload` - An array of [action creators](http://gaearon.github.io/redux/docs/basics/Actions.html#action-creators). This field must contain set of functions which shall be dispatched. For example, it can be [ordinary action creators](#simple-usage), or actions creators that return a [promise](#with-promises) (see [redux-promise](https://github.com/acdlite/redux-promise) or [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware)), in this case, you can specify `sequence` option. 
+- `sequence` - Specifies actions sequence. If `true` - dispatch array of action creators in sequential order, else - dispatch in parallel.
+
+### Simple usage
 ```js
 export function addTodo(text) {
   return { type: types.ADD_TODO, text };
@@ -43,8 +58,12 @@ export function addTodoAndIncrement({text}) {
         payload: [addTodo.bind(text), increment]
     };
 }
+
+// Dispatch action
+store.dispatch(addTodoAndIncrement({text:'Dispatch combined action'}));
 ```
 
+### With promises
 Using in combination with [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware).
 ```js
 export function getProviders() {
