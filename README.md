@@ -55,7 +55,7 @@ export function addTodoAndIncrement({text}) {
         ],
 
         // Pass actions in array
-        payload: [addTodo.bind(text), increment]
+        payload: [addTodo.bind(null, text), increment]
     };
 }
 
