@@ -77,7 +77,9 @@ export function getProviders() {
             'PROVIDERS_GET_SUCCESS',
             'PROVIDERS_GET_ERROR'
         ],
-        payload: api.getProvidersAsync()
+        payload: {
+          promise: api.getProvidersAsync()
+        }
     };
 }
 
@@ -88,7 +90,9 @@ export function getSubscribers() {
             'SUBSCRIBER_GET_SUCCESS',
             'SUBSCRIBER_GET_ERROR'
         ],
-        payload: api.getSubscribersAsync()
+        payload: {
+          promise: api.getSubscribersAsync()
+        }
     };
 }
 
