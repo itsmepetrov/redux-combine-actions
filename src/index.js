@@ -1,5 +1,5 @@
 function isArrayOfFunctions(array) {
-    return Array.isArray(array) && array.every(item => item instanceof Function);
+    return Array.isArray(array) && array.length > 0 && array.every(item => item instanceof Function);
 }
 
 export default function reduxCombineActions() {
