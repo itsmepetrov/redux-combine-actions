@@ -8,9 +8,9 @@ export default function reduxCombineActions() {
             return next(action);
         }
 
-        const { types, sequence } = action;
+        const { type, sequence } = action;
         const actions = action.payload;
-        const [ PENDING, FULFILLED, REJECTED ] = types;
+        const [ PENDING, FULFILLED, REJECTED ] = type;
         let promise;
 
         next({
