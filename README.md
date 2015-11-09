@@ -29,7 +29,7 @@ let store = createStoreWithMiddleware(reducer);
 To use the middleware, you action creator must return action with the following fields:
 
 - `types` - An array of action types in the next notation: [PENDING, SUCCESS, ERROR], where PENDING action is dispatched immediately, SUCCESS action is dispatched only if all child actions were executed successfully and ERROR action is dispatched  only if an error occurred.
-- `payload` - An array of [action creators](http://gaearon.github.io/redux/docs/basics/Actions.html#action-creators). This field must contain set of functions which shall be dispatched. For example, it can be [ordinary action creators](#simple-usage), or action creators that return a [promise](#with-promises) (see [redux-promise](https://github.com/acdlite/redux-promise) or [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware)), in this case, you can specify `sequence` option. 
+- `payload` - An array of [action creators](http://gaearon.github.io/redux/docs/basics/Actions.html#action-creators). This field must contain set of functions which shall be dispatched. For example, it can be [ordinary action creators](#simple-usage), or action creators that return a [promise](#with-promises) (see [redux-promise](https://github.com/acdlite/redux-promise) or [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware)), in this case, you can specify `sequence` option.
 - `sequence` - Specifies actions sequence. If `true` - dispatch array of action creators in sequential order, else - dispatch in parallel.
 
 The middleware returns a promise to the caller and a [FSA](https://github.com/acdlite/flux-standard-action) compliant action for both SUCCESS and ERROR action types.
@@ -48,7 +48,7 @@ export function increment() {
 export function addTodoAndIncrement({text}) {
 
     return {
-        types: [
+        type: [
             'COMBINED_ACTION_START',
             'COMBINED_ACTION_SUCCESS',
             'COMBINED_ACTION_ERROR'
@@ -72,7 +72,7 @@ Using in combination with [redux-promise-middleware](https://github.com/pburtcha
 ```js
 export function getProviders() {
     return {
-        types: [
+        type: [
             'PROVIDERS_GET_PENDING',
             'PROVIDERS_GET_SUCCESS',
             'PROVIDERS_GET_ERROR'
@@ -85,7 +85,7 @@ export function getProviders() {
 
 export function getSubscribers() {
     return {
-        types: [
+        type: [
             'SUBSCRIBER_GET_PENDING',
             'SUBSCRIBER_GET_SUCCESS',
             'SUBSCRIBER_GET_ERROR'
@@ -100,7 +100,7 @@ export function getSubscribers() {
 export function fetchData() {
 
     return {
-        types: [
+        type: [
             'DATABASE_FETCH_PENDING',
             'DATABASE_FETCH_SUCCESS',
             'DATABASE_FETCH_ERROR'
