@@ -2,19 +2,23 @@ function isArrayOfFunctions(array) {
     return Array.isArray(array) && array.length > 0 && array.every(item => item instanceof Function);
 }
 
+const defaultTypes = ['PENDING', 'FULFILLED', 'REJECTED'];
+
 export default function reduxCombineActions() {
+    const promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypes;
+
     return next => action => {
         if (!isArrayOfFunctions(action.payload)) {
             return next(action);
         }
 
-        const { types, sequence, meta} = action;
+        const { type, sequence, meta} = action;
         const actions = action.payload;
-        const [ PENDING, FULFILLED, REJECTED ] = types;
+        const [ PENDING, FULFILLED, REJECTED ] = (meta || {}).promiseTypeSuffixes || promiseTypeSuffixes;
         let promise;
 
         next({
-            type: PENDING,
+            type: `${type}_${PENDING}`
             ...meta ? { meta } : {}
         });
 
@@ -27,13 +31,13 @@ export default function reduxCombineActions() {
         return promise.then(
             payload => next({
                 payload,
-                type: FULFILLED,
+                type: `${type}_${FULFILLED}`
                 ...meta ? { meta } : {}
             }),
             error => next({
                 payload: error,
                 error: true,
-                type: REJECTED
+                type: `${type}_${REJECTED}`
                 ...meta ? { meta } : {}
             })
         );
