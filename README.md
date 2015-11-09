@@ -17,11 +17,11 @@ To enable redux-combine-actions use applyMiddleware()
 
 ```js
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import combineActionsMiddleware from 'redux-combine-actions';
+import sequenceMiddleware from 'redux-sequence-actions';
 import * as reducers from './reducers';
 
 let createStoreWithMiddleware = applyMiddleware(
-  combineActionsMiddleware({
+  sequenceMiddleware({
     promiseTypeSuffixes: ['START', 'SUCCESS', 'ERROR']
   })
 )(createStore);

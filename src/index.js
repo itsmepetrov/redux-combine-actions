@@ -4,7 +4,7 @@ function isArrayOfFunctions(array) {
 
 const defaultTypes = ['PENDING', 'FULFILLED', 'REJECTED'];
 
-export default function reduxCombineActions() {
+export default function sequenceMiddleware() {
     const promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypes;
 
     return next => action => {
