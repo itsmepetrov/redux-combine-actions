@@ -8,13 +8,14 @@ export default function reduxCombineActions() {
             return next(action);
         }
 
-        const { types, sequence } = action;
+        const { types, sequence, meta} = action;
         const actions = action.payload;
         const [ PENDING, FULFILLED, REJECTED ] = types;
         let promise;
 
         next({
-            type: PENDING
+            type: PENDING,
+            ...meta ? { meta } : {}
         });
 
         if (sequence) {
@@ -26,12 +27,14 @@ export default function reduxCombineActions() {
         return promise.then(
             payload => next({
                 payload,
-                type: FULFILLED
+                type: FULFILLED,
+                ...meta ? { meta } : {}
             }),
             error => next({
                 payload: error,
                 error: true,
                 type: REJECTED
+                ...meta ? { meta } : {}
             })
         );
     };
