@@ -1,7 +1,7 @@
 {
-  "name": "redux-combine-actions",
+  "name": "redux-sequence-actions",
   "version": "0.1.2",
-  "description": "Redux middleware for combining actions",
+  "description": "Redux middleware for sequencing/chaining actions",
   "main": "lib/index.js",
   "scripts": {
     "test": "eslint ./src/*.js",
